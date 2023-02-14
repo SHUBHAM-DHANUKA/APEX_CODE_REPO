@@ -1,0 +1,17 @@
+public Integer fibonacci(Integer n) {
+    //code here
+    Integer first = 1;
+    Integer second = 1;
+    Integer targetNum = 0;
+    if (n ==1 || n ==2 ){return 1;}
+    Integer i = 3;
+
+    while(i <= n){
+    targetNum = first + second; // 2
+     first = second;
+    second = targetNum; // 2
+    // 1
+    i = i +1;
+    }
+    return targetNum;
+}
