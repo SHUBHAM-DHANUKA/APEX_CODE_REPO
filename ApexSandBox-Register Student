@@ -1,0 +1,10 @@
+public String registerStudent(String name, String phone, String email) {
+    // code here
+    apxio__Student__c  ascd = new apxio__Student__c ();
+    ascd.Name = name;
+    ascd.apxio__Phone__c = phone;
+    ascd.apxio__Email__c = email;
+    insert ascd;
+    List<apxio__Student__c> li = [select apxio__Registration_Number__c from apxio__Student__c where Id =: ascd.Id LIMIT 1];
+    return  li[0].apxio__Registration_Number__c;
+}
