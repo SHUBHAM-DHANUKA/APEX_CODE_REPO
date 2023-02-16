@@ -1,0 +1,16 @@
+public List<Account> getAccountsFromJSONString(String inputJSON){
+    // code here
+    if(inputJSON == null){
+        return null;
+    }
+    List<Account> accs = new List<Account>();
+    List<Object> li = (List<Object>)JSON.deserializeUntyped(inputJSON);
+    for (Object o : li){
+        Map<String, Object> mi = (Map<String, Object>) o;
+        Account a = new Account();
+        a.Id = (Id) mi.get('Id');
+        a.Name = (String) mi.get('Name');
+        accs.add(a);
+    }
+    return accs;
+}
