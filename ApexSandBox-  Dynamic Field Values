@@ -1,0 +1,10 @@
+public List<String> getFieldsValue(Account acc, List<String> fields)
+{
+    // code here
+    List<String> li = new List<String>();
+    for(Integer i =0; i < fields.size();i++){
+       String field = String.valueOf(acc.get(fields[i]));
+       li.add(field);
+    }
+    return li;
+}
