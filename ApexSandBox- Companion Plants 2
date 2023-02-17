@@ -1,0 +1,35 @@
+public Boolean companionPlants(List<String> plants) {
+    //code here
+      Integer flag = 0;
+    if(plants.size() ==1){
+        return false;
+    }
+    List<String> plant = plants;
+    for(Integer i = 0; i<plants.size()-1; i++ ){
+        if(
+            (plant[i] == 'lettuce' && plant[i+1] == 'onions') || 
+            (plant[i] == 'onions' &&  plant[i+1] =='lettuce') ||
+            (plant[i] == 'lettuce' && plant[i+1] == 'cucumbers') || 
+            (plant[i] == 'cucumbers' && plant[i+1] =='lettuce') ||
+            (plant[i] == 'carrots' && plant[i+1] == 'onions') || 
+            (plant[i] == 'onions' && plant[i+1] =='carrots') ||
+            (plant[i] == 'tomatoes' && plant[i+1] == 'onions') || 
+            (plant[i] == 'onions' && plant[i+1] =='tomatoes')
+            ){
+        flag = 0;
+
+    }else{
+        flag = 1;
+        break;
+    }
+    }
+   
+
+    if(flag == 1){
+        return false;
+    }else{
+        return true;
+    }
+    
+
+}
