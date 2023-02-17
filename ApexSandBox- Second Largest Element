@@ -1,0 +1,14 @@
+public Integer secondLargest(List<Integer> numbers) {
+    //code here
+    numbers.sort();
+    Integer largestNumber = numbers[numbers.size()-1];
+    Integer secondLargest;
+
+    for(Integer i= numbers.size()-1; i>=0 ; i-- ){
+        if(numbers[i] != largestNumber){
+            secondLargest = numbers[i];
+            break;
+        }   
+    }
+  return secondLargest;
+}
