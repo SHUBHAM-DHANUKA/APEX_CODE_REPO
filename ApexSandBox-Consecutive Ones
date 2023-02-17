@@ -1,0 +1,23 @@
+public Integer maxConsecutiveOnes(Integer[] numbers) {
+//code here
+if (numbers.size() == 0){
+    return 0;
+}
+Integer count = 0;
+List<Integer> li = new List<Integer>();
+
+for(Integer i = 0; i< numbers.size(); i++){
+    count = count + 1;
+    if(numbers[i] == 0){
+        
+            li.add(count -1);
+            count = 0;
+    }
+    if(i == numbers.size()-1){
+        li.add(count);
+    }
+}
+li.sort();
+return li[li.size() - 1];
+
+}
