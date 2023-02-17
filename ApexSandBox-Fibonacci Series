@@ -1,0 +1,22 @@
+public List<Integer> fibonacciSeries(Integer n) {
+    //code here
+    List<Integer> li = new List<Integer>();
+    if(n ==1){
+        li.add(1);
+        return li;
+    }
+    Integer first  =1;
+    Integer second = 1;
+    Integer sum = 0;
+
+    li.add(first);
+    li.add(second);
+
+    for(Integer i =2; i<n ; i++ ){
+        sum = first + second;
+        first = second;
+        second = sum;
+        li.add(sum);
+    }
+    return li;
+}
