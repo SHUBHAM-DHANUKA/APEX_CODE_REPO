@@ -1,0 +1,6 @@
+public Set<Integer> setIntersection(Set<Integer> set1, Set<Integer> set2) {
+    //code here
+    Set<Integer> tempSet = new Set<Integer>(set1);
+    tempSet.retainAll(set2);
+    return tempSet;
+}
