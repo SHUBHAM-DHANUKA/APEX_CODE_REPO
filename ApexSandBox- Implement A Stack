@@ -1,0 +1,65 @@
+public class Stack {
+    List<Object> li = new List<Object>();
+
+
+    public void push(Object obj) {
+        //implement push
+        li.add(obj);
+    }
+    
+    public Object pop() {
+        //implement pop
+        if(li.size() >= 1){
+            return li.remove(li.size()-1);
+        }
+        return null;
+    }
+    
+    public Integer size() {
+        //implement size
+        return li.size();
+
+    }
+    
+    public Object peek(){
+        //implement peek 
+        return li.get(li.size()-1);
+    }
+    
+    public Boolean isEmpty() {
+        //implement isEmpty
+        return li.isEmpty();
+    }
+}
+
+---------------------------------------------------
+Stack stack = new Stack();
+stack.push(1);
+stack.push(2);
+System.assert(stack.size() == 2);
+System.assert(stack.isEmpty() == false);
+System.assert(stack.peek() == 2);
+stack.push(3);
+stack.push(4);
+System.assert(stack.isEmpty() == false);
+System.assert(stack.size() == 4);
+System.assert(stack.peek() == 4);
+System.assert(stack.pop() == 4);
+System.assert(stack.pop() == 3);
+System.assert(stack.peek() == 2);
+stack.push(100);
+System.assert(stack.size() == 3);
+System.assert(stack.pop() == 100);
+System.assert(stack.pop() == 2);
+System.assert(stack.pop() == 1);
+System.assert(stack.size() == 0);
+System.assert(stack.isEmpty() == true);
+System.assert(stack.pop() == null);
+
+
+---------------------------------------------------
+Push : add an object to the top of the stack
+Pop: remove the object at the top of the stack
+Peek: return the object at the top of the stack but do not remove
+Size: return the number of objects in the stack
+Is Empty: return true is the stack is empty, false if not
