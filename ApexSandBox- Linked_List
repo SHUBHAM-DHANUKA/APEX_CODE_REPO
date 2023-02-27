@@ -1,0 +1,39 @@
+public class LinkedListNode {
+    public Integer data;
+    public LinkedListNode next;
+    
+    public LinkedListNode(Integer data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedList {
+    public LinkedListNode head;
+    
+    public LinkedList() {
+        this.head = null;
+    }
+    
+    public void addNode(Integer data) {
+        LinkedListNode newNode = new LinkedListNode(data);
+        
+        if (head == null) {
+            head = newNode;
+        } else {
+            LinkedListNode currNode = head;
+            while (currNode.next != null) {
+                currNode = currNode.next;
+            }
+            currNode.next = newNode;
+        }
+    }
+    
+    public void printList() {
+        LinkedListNode currNode = head;
+        while (currNode != null) {
+            System.debug(currNode.data);
+            currNode = currNode.next;
+        }
+    }
+}
