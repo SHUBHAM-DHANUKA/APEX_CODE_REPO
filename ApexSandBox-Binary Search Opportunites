@@ -1,0 +1,40 @@
+public static Integer search(List<Opportunity> opportunities, Integer target){
+    // solution here
+    /*Integer re = -1;
+    for(Integer i =0; i< opportunities.size(); i++){
+        if(opportunities[i].amount == target){
+            re = i;
+            break;
+        }
+    }
+    return re;*/
+
+
+      // solution here
+
+    //define two pointers one at index 0 and another at index opportunities.size() - 1(i.e last index)
+    Integer startIndex = 0;
+    Integer endIndex = opportunities.size() - 1;
+    //perform binary search on the list opportunities
+    // time complexity of binary search is log(n)
+    while(startIndex <= endIndex){
+        // find middle index.
+        // middleIndex = startIndex + (endIndex - startIndex)/2 this is better approach to find middle index
+        Integer middleIndex = startIndex + (endIndex - startIndex)/2;
+        //if middleIndex amount == target return middleIndex
+        // else if middleIndex amount > target than our target lies left element of middleIndex because array is sorted
+        // assign endIndex = middleIndex - 1;
+        // else our target lies in right side of middleIndex
+        // assign startIndex = middleIndex + 1
+        // if target doesn't exist return -1
+        if(opportunities.get(middleIndex).amount == target){
+            return middleIndex;
+        }else if(opportunities.get(middleIndex).amount > target){
+            endIndex = middleIndex - 1;
+        }else{
+            startIndex = middleIndex + 1;
+        }
+    }
+    return -1;
+}
+
