@@ -1,0 +1,101 @@
+public class LinkedList{
+public Node head;
+    public Node tail;
+	public Integer size;
+	
+    public LinkedList() {
+        this.head = null;
+		this.tail = null;
+		this.size = 0;
+    }
+	
+	public void addToFront(Integer value){
+        Node node = new Node();
+        node.data = value;
+		
+        if (this.head == null) {
+            this.head = node;
+            this.tail = this.head;
+        } else {
+            //do this in order
+            node.next = this.head;
+            this.head = node;
+        }
+        this.size++;
+    }
+	
+	public void addToTail(Integer value){
+		Node currNode = head;
+        Node node = new Node();
+        node.data = value;
+		
+		
+        if (this.head == null) {
+            this.head = node;
+            this.tail = this.head;
+        } else {
+		    while (currNode.next != null) {
+                currNode = currNode.next;
+            }
+            currNode.next = node;
+            this.tail = node;
+            
+        }
+        this.size++;
+    }
+	
+	public Integer removeFromFront(){
+        if(this.size == 0){
+            return null;
+        }
+        Integer value = this.head.data;
+        this.head = this.head.next;
+        this.size--;
+        return value;
+    }
+	
+	public Integer removeFromTail(){
+        if(this.size == 0 ){
+            return null;
+        } else if(this.size == 1){
+            Integer data = this.head.data;
+            this.head = null;
+            this.size --;
+            return data;
+        }
+		
+        Node current = this.head;
+        Node newTail = null;
+        while (current.next != null) {
+            newTail = current;
+            current = current.next;
+        }
+        Integer data = current.data;
+        this.tail = newTail;
+        this.tail.next = null; 
+        this.size --;
+        return data;
+    }
+	
+    public Integer size(){
+        return this.size;
+    }
+	
+	public void printList() {
+        Node currNode = head;
+        while (currNode != null) {
+            System.debug(currNode.data);
+            currNode = currNode.next;
+        }
+    }
+}
+
+public class Node{
+    public Integer data;
+    public Node next;
+	
+    public Node() {
+        this.data = null;
+        this.next = null;
+    }
+}
