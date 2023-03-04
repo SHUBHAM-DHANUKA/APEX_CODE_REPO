@@ -1,0 +1,26 @@
+public boolean isAnagram(String s1, String s2) {
+    //Code here
+    //Code here
+    if(s1 == s2 ){ return false; }
+    Map<String, Integer> mi = new Map<String, Integer>();
+   
+    List<String> li = s1.split('');
+    for(integer i = 0; i< li.size(); i++){
+        mi.put(li[i], s1.countMatches(li[i]));
+        System.debug(mi);
+    }
+    List<String> li2 = s2.split('');
+    Integer flag = 0;
+    for(integer i = 0; i< li2.size(); i++){
+        if ( mi.get(li2[i]) != s2.countMatches(li2[i]) ){
+            //System.debug(mi.get(li2[i])+' '+s2.countMatches(li2[i]) );
+            flag = 1;
+            //break;
+        }
+    }
+    if(flag == 1){
+       return false; 
+    }
+    return true;
+
+}
