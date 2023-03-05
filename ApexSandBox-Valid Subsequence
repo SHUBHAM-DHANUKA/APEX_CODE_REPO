@@ -1,0 +1,18 @@
+public Boolean isSubSequence(String s1, String s2){
+    //code here
+    List<String> li = new List<String>();
+    Integer flag = 0;
+    li = s1.split('');
+    for(Integer i=0; i< li.size(); i++){
+        if(s2.contains(li[i]) == false){
+            flag = 1;
+        }
+        
+    }
+
+    if(flag ==1){
+        return false;
+    }else{
+        return true;
+    }
+}
