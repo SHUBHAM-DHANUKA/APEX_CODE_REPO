@@ -1,0 +1,51 @@
+public Boolean isValid(String s){
+    //code here 
+    List<String> li = new List<String>(); 
+
+    List<String> temp = s.split('');
+
+    for(Integer i=0; i<temp.size()-1; i++){
+        if(temp[i] == '('){
+            li.add('(');
+        }
+        if(temp[i] == '{'){
+            li.add('{');
+        }
+        if(temp[i] == '['){
+            li.add('[');
+        }
+  	    if(temp[i] == ')'){
+            if(li.indexOf('(') != -1){
+                li.remove(li.indexOf('('));
+                
+            }
+            else{
+                li.add(')');
+            }
+        }
+        if(temp[i] == '}'){
+            if(li.indexOf('{') != -1){
+                li.remove(li.indexOf('{'));
+               
+            }else{
+                li.add('}');
+            }
+            
+        }
+        if(temp[i] == ']'){
+            if(li.indexOf('[') != -1){
+                li.remove(li.indexOf('['));
+               
+            }else{
+                li.add(']');
+            }
+            
+        }
+    }
+    if(li.size() ==0){
+        return true;
+    }else{
+        return false;
+    }
+    
+}
