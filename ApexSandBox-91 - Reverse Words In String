@@ -1,0 +1,19 @@
+public static String reverseWords(String str){
+ // solution here 
+ List<String> li = new List<String>();
+ List<String> tempList = new List<String>();
+ List<String> finalList = new List<String>();
+ String finalString = '';
+ li = str.split(' ');
+ for(Integer i=0; i< li.size(); i++){
+    String temp=  li[i];
+    tempList = temp.split('');
+    String tempstring = '';
+    for(Integer j= tempList.size()-1; j>=0; j--){
+        tempstring = tempstring + tempList[j];
+    }
+    finalList.add(tempstring);
+ }
+ finalString = String.join(finalList, ' ');
+ return finalString;
+}
