@@ -1,0 +1,17 @@
+public void defragging(Integer[] memory)
+{
+    // code here
+    Integer count = 0;
+    for(Integer i=0; i<memory.size(); i++){
+        if(memory[i] == -1){
+            count++;
+            memory.remove(i);
+            i--;
+        }
+    }
+    while(count>0){
+        memory.add(-1);
+        count--;
+    }
+
+}
