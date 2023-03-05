@@ -1,0 +1,9 @@
+public static List<Integer> squareList(List<Integer> nums){
+    //solution here
+    List<Integer> temp = new List<Integer>();
+    for(Integer i =0; i< nums.size(); i++){
+        temp.add(Integer.valueOf(Math.pow(nums[i], 2)));
+    }
+    temp.sort();
+    return temp;
+}
