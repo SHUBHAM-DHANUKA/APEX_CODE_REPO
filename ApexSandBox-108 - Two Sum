@@ -1,0 +1,42 @@
+public static List<Integer> twoSum(List<Integer> nums, Integer target) {
+     //code here
+     //code here
+    List<Integer> li = new List<Integer>();
+      Integer low =0;
+      Integer max =0;
+      for(Integer i =0; i<nums.size(); i++){
+          if(nums[i]< target){
+              
+              low = nums[i];
+              max = target - low;
+              System.debug(low +' '+ max);
+              
+                  System.debug(li +' ' +nums);
+                  if(low != max){
+                      if(nums.contains(max)){
+                            li.add(i);
+                  	  	    li.add(nums.indexOf(max));
+                  	  		break;
+                      }
+                  }
+                  if(low == max){
+                      li.add(i);
+                      Integer temp = nums.remove(i);
+                      System.debug(li +'' +nums);
+                       if(nums.contains(max)){
+              
+                  	  	    li.add(nums.indexOf(max)+1);
+                  	  		break;
+                       }else{
+                           nums.add(i, temp);
+                           li.clear();
+                       }
+                  	  
+                  }
+                  
+              }
+            }
+         System.debug(li);
+      return li;
+        
+}
