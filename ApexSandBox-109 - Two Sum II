@@ -1,0 +1,18 @@
+public List<Integer> twoSum(List<Integer> nums, Integer target){
+    //code here
+
+    //code here
+    Integer left = 0;
+    Integer right = nums.size() -1; 
+    while(left < right){
+        Integer sum = nums[left] + nums[right];
+        if(sum == target){
+            return new List<Integer>{left, right};
+        }else if (sum < target){
+            left++;
+        }else right --;
+    }
+    return new List<Integer>();
+
+      
+}
