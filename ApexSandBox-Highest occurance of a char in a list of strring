@@ -1,0 +1,42 @@
+public List<String> commonChars(List<String> strs){
+    //solution here
+    //solution here
+    Map<String, Integer> mi = new Map<String, Integer>();
+    List<String> li = new List<String>();
+    for(Integer i =0; i< strs.size(); i++){
+        String temp = strs[i];
+        List<String> tempList = temp.split('');
+        //System.debug(tempList);
+        
+        for(Integer j=0; j<tempList.size(); j++){
+            if(mi.containsKey(tempList[j])){
+                Integer count = mi.get(tempList[j]);
+                count =count+1;
+                mi.put(tempList[j], count);
+            }else{
+               mi.put(tempList[j], 1); 
+            }
+            //System.debug(mi);
+        }
+    }
+      //System.debug(mi);
+      List<Integer> listOfValue = mi.values();
+      listOfValue.sort();
+      Integer highOccurance = listOfValue[listOfValue.size()-1];
+
+        Set<String> si = mi.keySet();
+        for(string s: si){
+            if(mi.get(s) == highOccurance){
+            li.add(s);
+        }
+        }
+      //System.debug(li);  
+      return li;
+
+}
+
+------------------------------
+List<String> strs = new List<String>{'cook', 'lock', 'cool'};
+stringtest.commonChars(strs);
+------------------------------
+Answer is o
