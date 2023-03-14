@@ -103,3 +103,45 @@ public class Stack {
     }
     
 }
+
+
+
+-----------------------------------------------------------------------------------------------------
+public with sharing class stackUsingArray {
+    public list<Object> li {get;set;}
+    
+    public stackUsingArray() {
+        this.li = new List<Object>();
+
+    }
+
+    public void push(Object o){
+        this.li.add(o);
+    }
+
+    public object pop(){
+        if(this.li.size()!=0){
+            return li.remove(li.size()-1);
+        }
+        return null;
+    }
+
+    public Integer size(){
+        return this.li.size();
+    }
+    
+    public List<Object> stack(){
+        return this.li;
+    }
+}
+
+------------------------------------------------------------------
+stackUsingArray sr = new stackUsingArray();
+sr.push(5);
+sr.push(10);
+System.debug(sr.pop());
+System.debug(sr.size());
+System.debug(sr.stack());
+------------------------------------------------------------------
+
+
