@@ -1,0 +1,22 @@
+//18. When a Opportunity Stage (field) is changed, create a Task record on
+//Opportunity and assign it to Logged In User/Opportunity Owner / Any User.
+
+trigger task on Opportunity (after update) {
+    if(Trigger.isAfter && Trigger.isUpdate){
+        List<Task> listofTask = new List<Task>();
+        for(Opportunity o : Trigger.new){
+            if(o.StageName != Trigger.oldMap.get(o.id).StageName){
+                Task t = new Task();
+                t.Subject = 'Send Letter';
+                t.Priority = 'Normal';
+                t.Status = 'Not Started';
+                t.ActivityDate = system.today();
+                t.WhatId = o.Id;
+                t.OwnerId = UserInfo.getUserId();
+                listofTask.add(t);
+            }
+        }
+        insert listofTask;
+    }
+    
+}
