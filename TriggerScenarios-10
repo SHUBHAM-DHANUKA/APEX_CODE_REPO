@@ -1,0 +1,27 @@
+//10. If the Account phone is updated then populate below message in
+//description.
+//Description = Phone is Updated! Old Value : XXX & New Value : XXX
+
+
+trigger populatedPhone on Account (before update) {
+    /*if(Trigger.isBefore && Trigger.isUpdate){
+        //List<Account> li = new List<Account>();
+        //How to make sure it only execute only for phone updation not any other field of account ( Two apporaches, one with list other with map
+        for(Account a: Trigger.old){
+            for(Account b :  Trigger.new){
+                if(a.Phone != b.Phone ){
+                    b.Description =  'Phone is Updated! Old Value :' + a.Phone +' & New Value :' + b.Phone;
+                   
+                }
+            }
+        }
+   
+    }*/
+    if(Trigger.isBefore && Trigger.isUpdate){
+        for(Account a : Trigger.new){
+            if(a.Phone != Trigger.oldMap.get(a.Id).Phone){
+                a.Description =  'Phone is Updated! Old Value :' + Trigger.oldMap.get(a.Id).Phone +' & New Value :' + a.Phone;
+            }
+        }
+    }
+}
