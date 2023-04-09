@@ -1,0 +1,23 @@
+/*
+4. Upon Creation of Position (Custom Object) if it is a New Position and Open Date,
+Min Pay & Max Pay are not populated then populated them with below values:
+a. Open Date = Today’s Date
+b. Min Pay = 10000
+c. Max Pay = 15000
+
+
+*/
+
+
+
+trigger populated on Position__c (before insert) {
+    if(Trigger.isInsert && Trigger.isBefore){
+        for(Position__c p : Trigger.new){
+            if(p.Open_Date__c == Null || p.Min_Pay__c == Null || p.Max_Pay__c == Null){
+                p.Open_Date__c = System.Today();
+                p.Min_Pay__c = 10000;
+                p.Max_Pay__c= 15000;
+            }
+        }
+    }
+}
