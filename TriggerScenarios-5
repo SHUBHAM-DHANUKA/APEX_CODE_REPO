@@ -1,0 +1,19 @@
+//5. Create a related Contact when an Account is created.
+
+trigger ratingFillup on Account (after insert) {
+   
+    if(Trigger.isInsert && Trigger.isAfter){
+        List<Contact> listofContact = new List<Contact>();
+    for(Account actNew : Trigger.new){
+        Contact c = new Contact();
+        c.LastName = actNew.Name;
+        c.AccountId = actNew.Id;
+        listofContact.add(c);
+   
+    }
+        upsert listofContact;   
+        }
+    
+ 
+    
+}
