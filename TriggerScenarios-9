@@ -1,0 +1,30 @@
+//9. On Account create two checkbox fields labeled as Contact and Opportunity.
+//Now when a new Account record is created and if a particular Contact or
+//Opportunity checkbox is checked then create that related record. Also
+//Opportunity record should be created only if the Account record Active picklist is
+//populated with a Yes.
+
+trigger populatedContactOpportunity on Account (after insert) {
+    if(Trigger.isInsert && Trigger.isAfter){
+        List<Contact> li1 = new List<Contact>();
+        List<Opportunity> li2 = new List<Opportunity>();
+        for(Account a :  Trigger.new){
+            if(a.contactCheckbox__c == true){
+                Contact c = new Contact();
+                c.LastName = a.Name;
+                c.AccountId = a.Id;
+                li1.add(c);
+            }
+            if(a.opportunityCheckbox__c == true && a.Active__c == 'Yes'){
+                Opportunity o = new Opportunity();
+                o.AccountId = a.Id;
+                o.Name = a.Name;
+                o.StageName = 'Closed Won';
+                o.CloseDate = System.today();
+                li2.add(o);
+            }
+        }  
+        upsert li1;
+        upsert li2;
+    }
+}
