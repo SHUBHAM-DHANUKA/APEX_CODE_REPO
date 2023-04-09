@@ -1,0 +1,29 @@
+//19. Write a trigger on Account when Account Active field is updated from ‘Yes’
+//to ‘No’ then check all opportunities associated with the account. Update all
+//Opportunities Stage to close lost if stage not equal to close won.
+
+trigger updationofOpportunity on Account (after update) {
+    if(Trigger.isAfter && Trigger.isUpdate){
+        List<Id> listofAccountId = new List<Id>();
+        for(Account a: Trigger.new){
+            
+            
+            if(a.Active__c != Trigger.oldMap.get(a.Id).Active__c ){
+                if(a.Active__c == 'No'){
+                    listofAccountId.add(a.Id);
+                }
+            }
+        }
+        List<Opportunity> listOfOpportunity = [select Id, Name, AccountId, StageName from Opportunity where AccountId in :listofAccountId ];
+        List<Opportunity> updatedOppor = new List<Opportunity>();
+        for(Account a : Trigger.new){
+            for(Opportunity o : listOfOpportunity){
+                if(a.Id == o.AccountId && o.StageName != 'Closed Won'){
+                    o.StageName = 'Closed Lost';
+                    updatedOppor.add(o);
+                }
+            }
+        }
+        update updatedOppor;
+    }
+}
