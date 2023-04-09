@@ -1,0 +1,29 @@
+//14. If the Account phone is updated then populate the phone number on all
+//related Contacts (Home Phone field). [Using Map]
+
+
+trigger populatedPhone on Account (before update) {
+    if(Trigger.isBefore && Trigger.isUpdate){
+        List<Id> listofAccountId = new List<Id>();
+        
+        for(Account a : Trigger.new){
+            if(a.Phone != Trigger.oldMap.get(a.Id).Phone){
+                       listofAccountId.add(a.Id);
+            }
+        }
+        
+        List<Contact> listOfAllContact = [select Id, Phone, AccountId from Contact where AccountId in :listofAccountId ];
+        
+        List<Contact> listofUpdatedContact = new List<Contact>();
+        for(Account a : Trigger.new){
+        	for(Contact c: listOfAllContact){
+                if(a.Id == c.AccountId){
+                    c.Phone = a.Phone; 
+                    listofUpdatedContact.add(c);
+                }
+            
+        	}
+        }
+        update listofUpdatedContact;
+    }
+}
