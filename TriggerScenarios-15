@@ -1,0 +1,11 @@
+//20. Account records cannot be deleted if active is Yes.
+
+trigger testingAccount on Account (before delete) {
+    if(Trigger.isBefore && Trigger.isDelete){
+        for(Account a: Trigger.old){
+            if(a.Active__c == 'Yes'){
+                a.addError('can not delete');
+            }
+        }
+    }
+}
