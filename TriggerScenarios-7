@@ -1,0 +1,17 @@
+//7. When a Case is created on any Account, put the latest case number on the
+//Account in the ‘Latest Case Number’ field.
+
+trigger populatedAccount on Case (after insert) {
+    if(Trigger.isInsert && Trigger.isAfter){
+        List<Account> listOfAccount = new  List<Account>();
+        for(Case c : Trigger.new){
+            if(c.AccountId != Null){
+                Account a = new Account();
+                a.Id = c.AccountId;
+                a.Latest_Case_Number__c = c.CaseNumber;
+                listOfAccount.add(a);
+            }
+        }
+        upsert listOfAccount;
+    }
+}
