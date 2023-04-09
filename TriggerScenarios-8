@@ -1,0 +1,17 @@
+//8. Account records should have a field named ‘Recent Opportunity Amount’. It
+//should contain the opportunity amount of the latest created opportunity on
+//account.
+trigger populatedAccountOpportunity on Opportunity (after insert) {
+    if(Trigger.isInsert && Trigger.isAfter){
+        List<Account> listOfAccount = new  List<Account>();
+        for(Opportunity c : Trigger.new){
+            if(c.AccountId != Null){
+                Account a = new Account();
+                a.Id = c.AccountId;
+                a.Recent_Opportunity_Amount__c = c.Amount;
+                listOfAccount.add(a);
+            }
+        }
+        upsert listOfAccount;
+    }
+}
