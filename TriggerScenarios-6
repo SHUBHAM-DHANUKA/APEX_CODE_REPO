@@ -1,0 +1,21 @@
+//6. Create a related Opportunity when an Account is created..
+
+trigger ratingFillup on Account (after insert) {
+   
+    if(Trigger.isInsert && Trigger.isAfter){
+        List<Opportunity > listofOpportunity  = new List<Opportunity>();
+    for(Account actNew : Trigger.new){
+        Opportunity  o = new Opportunity ();
+        o.Name = actNew.Name;
+        o.StageName = 'Closed Won';
+        o.CloseDate = System.today();
+        o.AccountId = actNew.Id;
+        listofOpportunity.add(o);
+   
+    }
+        upsert listofOpportunity;   
+        }
+    
+ 
+    
+}
