@@ -1,0 +1,21 @@
+//When an account inserts and CopyBillingToShipping (Custom Field) checkbox is
+//checked then automatically copy account billing address into account shipping
+//address.
+
+trigger ratingFillup on Account (before insert) {
+
+    if(Trigger.isInsert && Trigger.isBefore){
+    for(Account actNew : Trigger.new){
+        
+        if(actNew.CopyBillingToShipping__c  == true ){
+
+			actNew.ShippingCity = actNew.BillingCity; 
+			actNew.ShippingCountry = actNew.BillingCountry;
+			actNew.ShippingPostalCode = actNew.BillingPostalCode;
+			actNew.ShippingState = actNew.BillingState;
+			actNew.ShippingStreet = actNew.BillingStreet;        
+        }
+    }
+        }
+    
+}
