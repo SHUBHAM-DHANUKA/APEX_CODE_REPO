@@ -1,0 +1,13 @@
+//Upon Opportunity Creation if Amount is not null and is greater than 100000 then
+//populate ‘Hot Opportunity’ in description field.
+
+
+trigger DescriptionFillup on Opportunity (before insert) {
+    if(Trigger.isInsert && Trigger.isBefore){
+        for(Opportunity o : Trigger.new){
+            if(o.Amount != Null  && o.Amount > 100000){
+                o.Description = 'Hot Opportunity';
+            }
+        }
+    }
+}
