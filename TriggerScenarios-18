@@ -1,0 +1,14 @@
+//24. Write a trigger on Account and check only System Administrator profile
+//users should be able to delete an account.
+
+trigger AccountDeletionPrevention on Account (before delete) {
+    if(Trigger.isDelete && Trigger.isBefore){
+        for(Account a : Trigger.old){
+            Id profileId=userinfo.getProfileId();
+			String profileName=[Select Id,Name from Profile where Id=:profileId].Name;
+            if(profileName != 'System Administrator'){
+                a.addError('Not allowed');
+            }
+        }
+    }
+}
