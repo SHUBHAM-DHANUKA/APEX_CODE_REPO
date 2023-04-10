@@ -1,0 +1,21 @@
+// 26. Prevent deletion of an account if there is any opportunity related to that account.
+
+
+trigger AccountDeletionPrevention on Account (before delete) {
+    if(Trigger.isDelete && Trigger.isBefore){
+        List<Id> listofAccountId = new List<Id>();
+        for(Account a : Trigger.old){
+        	listofAccountId.add(a.Id);
+        }
+        /*List<Opportunity> li = [select id from Opportunity where AccountId in :listofAccountId];
+        if(!li.isEmpty()){
+             throw ('can not be deleted');
+        }*/
+        for(Account a : [Select id, (Select id from Opportunities) from Account where Id in :listofAccountId ]){
+            if(a.Opportunities.size()!=0){
+                a.addError('cant delete');
+            }
+        }
+        
+    }
+}
