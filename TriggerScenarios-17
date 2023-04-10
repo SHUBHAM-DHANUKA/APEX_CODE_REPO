@@ -1,0 +1,13 @@
+//23. When an opportunity is updated to Closed Lost and Closed Lost Reason
+//(field) is not populated then throw validation error that ‘Please populate
+//Closed Lost Reason’ on opportunity. [before update]
+
+trigger opportunityValidation on Opportunity (before update) {
+    if(Trigger.isUpdate && Trigger.isBefore){
+        for(Opportunity o : Trigger.new){
+            if(o.StageName == 'Closed Lost' && String.isBlank(o.Description)){
+                o.addError('Can not be null');
+            }
+        }
+    }
+}
