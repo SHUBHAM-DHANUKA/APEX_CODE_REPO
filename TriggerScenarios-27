@@ -1,0 +1,25 @@
+//40. Whenever a new User having profile “System Administrator” is inserted and
+//is Active, add the user to the public group “Admins”. Create a public group
+//named Admins
+trigger userGroupUpdate on User (after insert) {
+    if(Trigger.isInsert && Trigger.isAfter){
+        List<GroupMember> groupList = new List<GroupMember>();
+        for(User u : Trigger.new){
+            String profileName = [select id, Name from Profile where id =: u.ProfileId].Name;
+            Boolean isActiveStatus = [select Id, Name, IsActive from User where id =:u.Id].IsActive; 
+            
+            Id groupId = [select Id, Name from Group  where DeveloperName = 'Admins'].Id;
+            
+            
+            if(profileName == 'System Administrator' && isActiveStatus == true){
+                GroupMember grp= new GroupMember();
+                grp.GroupId=groupId;
+                grp.UserOrGroupId=u.Id;
+                groupList.add(grp);
+                
+            }
+            
+        }
+        insert groupList;
+    }
+}
