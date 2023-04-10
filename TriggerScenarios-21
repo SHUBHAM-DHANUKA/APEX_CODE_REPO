@@ -1,0 +1,15 @@
+//29. Undelete Employee record and set Active as true.
+trigger EmployeeCount on Employee__c (after undelete) {
+    if(Trigger.isAfter && Trigger.isUndelete){
+        List<Id> listofEmployeeAccountId = new List<Id>();
+        for(Employee__c e: Trigger.new){
+           listofEmployeeAccountId.add(e.Account__c);
+        }
+        List<Account> li = new List<Account>();
+        for(Account a: [select id, Active__c from Account where Id in :listofEmployeeAccountId]){
+        a.Active__c = 'Yes';
+            li.add(a);
+        }
+        Update li;
+}
+}
