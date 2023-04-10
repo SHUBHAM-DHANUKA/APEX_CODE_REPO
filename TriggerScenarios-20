@@ -1,0 +1,16 @@
+//28. When the Employee record is deleted then update ‘Left Employee Count’on Account.
+
+trigger EmployeeCount on Employee__c (after delete) {
+    if(Trigger.isAfter && Trigger.isDelete){
+        List<Id> listofEmployeeAccountId = new List<Id>();
+        for(Employee__c e: Trigger.old){
+           listofEmployeeAccountId.add(e.Account__c);
+        }
+        List<Account> li = new List<Account>();
+        for(Account a: [select id, ( select id from Employee__r) from Account where Id in :listofEmployeeAccountId]){
+            a.Employee_Count__c = a.Employee__r.size();
+            li.add(a);
+        }
+        update li;    
+    }
+}
