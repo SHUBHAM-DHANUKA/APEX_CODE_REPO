@@ -1,0 +1,27 @@
+//42. Set OWD as Private for Account. Once an Account record is created, it
+//should be automatically shared with any one user who belongs to Standard
+//User profile.
+
+trigger accountShare on Account (after insert) {
+    if(Trigger.isInsert && Trigger.isAfter){
+        Id standardprofileId = [select Id, Name from Profile where Name = 'Standard User' LIMIT 1].Id;
+        
+        // instead of a list of user id, go with group id, And if need to assign one user ok, if mulitple user, check how users lists are being maintained 
+        
+        //List<User> listofUser = [select Id, Name from user where ProfileId = :standardprofileId];
+        Id groupId = [select Id, Name from Group  where DeveloperName = 'Admins'].Id;
+        
+        List<AccountShare> accShareList=new List<AccountShare>();
+        for(Account a : Trigger.new){
+                AccountShare aShare= new AccountShare();
+                aShare.UserOrGroupId=groupId;
+                aShare.AccountId=a.Id;
+                aShare.RowCause='Manual';
+                aShare.AccountAccessLevel='Edit';
+                aShare.OpportunityAccessLevel='Edit';
+                accShareList.add(aShare);
+            }
+        insert accShareList;
+        }
+    
+}
