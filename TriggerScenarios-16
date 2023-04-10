@@ -1,0 +1,12 @@
+//22. Apply validation using addError( ) method in trigger. While Creation of
+//Opportunity is Amount is null then throw an error message.
+
+trigger opportunityValidation on Opportunity (before insert) {
+    if(Trigger.isInsert && Trigger.isBefore){
+        for(Opportunity o : Trigger.new){
+            if(o.Amount == Null){
+                o.addError('Can not be null');
+            }
+        }
+    }
+}
