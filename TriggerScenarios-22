@@ -1,0 +1,17 @@
+// 30. When the Employee record is undeleted then update ‘Left Employee Count’ on Account.
+
+trigger EmployeeCount on Employee__c (after undelete) {
+   if(Trigger.isAfter && Trigger.isUndelete){ 
+        List<Id> listofEmployeeAccountId = new List<Id>();
+        for(Employee__c e: Trigger.new){
+           listofEmployeeAccountId.add(e.Account__c);
+        }
+        List<Account> li = new List<Account>();
+        for(Account a: [select id, ( select id from Employee__r) from Account where Id in :listofEmployeeAccountId]){
+            a.Employee_Count__c = a.Employee__r.size();
+            li.add(a);
+        }
+        update li;    
+    }
+
+}
