@@ -1,0 +1,33 @@
+//35. Database class and addError( ) method in trigger.
+
+trigger AccountTrigger on Account (after insert) {
+if(Trigger.isInsert){
+if(Trigger.isAfter){
+AccountTriggerHandler.createOpp(Trigger.new);
+}
+}
+}
+public class AccountTriggerHandler{
+public static void createOpp(List<Account> accList){
+List<Opportunity> oppList= new List<Opportunity>();
+for(Account acc:accList){
+Opportunity opp= new Opportunity();
+opp.Name=acc.Name;
+opp.AccountId=acc.Id;
+opp.StageName='Prospecting';
+// opp.CloseDate=System.today();
+oppList.add(opp);
+}
+Database.SaveResult[] srList= DataBase.insert(oppList,false);
+for(Integer i=0;i<srList.size();i++){
+if(!srList[i].isSuccess()){
+String errors='';
+for(DataBase.Error err:srList[i].getErrors()){
+errors=errors+err.getMessage();
+
+}
+accList[i].addError(errors);
+}
+}
+}
+}
