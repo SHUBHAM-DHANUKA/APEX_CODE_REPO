@@ -1,0 +1,32 @@
+//32. Upon contact creation an email should be sent to email populated on
+//Contact with specified template.
+trigger EmailSent on Contact (after insert) {
+    if(Trigger.isInsert && Trigger.isAfter){
+        List<Messaging.Email> emailList=new List<Messaging.Email>();
+        for(Contact con: Trigger.new){
+            if(con.Email != Null){
+                Messaging.SingleEmailMessage emailMsg= new Messaging.SingleEmailMessage();
+                
+                String[] toAddress= new String[]{con.Email};
+                emailMsg.setToAddresses(toAddress);
+                
+                String emailSubject='Welcome '+ con.FirstName; 
+                emailMsg.setSubject(emailSubject);
+                
+                String disName='TEAM COSEC';
+                emailMsg.setSenderDisplayName(disName);
+                
+                String content= 'Hi '+ con.FirstName+ ',<br/><br/>'+
+                    'Welcome to SalesForce EcoSystem! <br/><br/>'+
+                    'Happy learning! <br/><br/>'+
+                    'Thank you! <br/><br/>';
+                emailMsg.setHtmlBody(content);
+                
+                emailList.add(emailMsg);
+            }
+        }
+        Messaging.sendEmail(emailList);
+
+    }
+    
+}
